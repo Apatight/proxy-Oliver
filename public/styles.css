@@ -1,0 +1,204 @@
+.proxy-container {
+  display: flex;
+  justify-content: center;
+}
+
+.nearby-padding {
+  color: #101820;
+  font: 15px/20px 'Source Sans Pro';
+  letter-spacing: .013em;
+  background-color: #f1f1f2;
+  padding-left: 30px;
+}
+
+.restaurant-header {
+  font-size: 18px;
+  letter-spacing: 0.07em;
+  padding-bottom: 30px;
+  padding-top: 5px;
+  border-top: 1px black solid;
+}
+
+.restaurant-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media all and (max-width: 950px) {
+  .restaurant-cards {
+    /* On small screens */
+    grid-template-columns: 1fr;
+  }
+}
+
+.restaurant-container {
+  display: flex;
+  margin-right: 40px;
+  margin-bottom: 40px;
+  height: 215px;
+  background-color: #ffffff;
+  color: #101820;
+  font: 15px/20px 'Source Sans Pro';
+  letter-spacing: .013em;
+}
+
+.restaurant-photocarousel {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.restaurant-photocarousel-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.restaurant-photocarousel .carousel.slide {
+  height: 100%;
+}
+
+.restaurant-photocarousel .carousel.slide .carousel-inner {
+  height: 100%;
+}
+
+.restaurant-photocarousel .carousel.slide .carousel-inner .item {
+  height: 100%;
+}
+
+.restaurant-photocarousel .carousel.slide .carousel-inner img {
+  height: 100%;
+}
+
+.carousel-indicators {
+  bottom: -10px;
+}
+
+.restaurant-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 24px;
+  flex: 3;
+}
+
+.restaurant-details-name {
+  position: relative;
+  text-decoration: none;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: .15em;
+}
+
+.restaurant-details-name:hover {
+  cursor: pointer;
+}
+
+.restaurant-details-name:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #92002c;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.restaurant-details-name:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.restaurant-details-info {
+  padding: 2px;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: .09em;
+}
+
+.pipeline {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.restaurant-details-ratings-comments, .restaurant-details-ratings-google-rating {
+  font-size: 12.5px;
+}
+
+.apateez-logo-small, .google-logo-small,
+.restaurant-details-ratings-zagat-rated, .restaurant-details-ratings-zagat-rated-value,
+.restaurant-details-ratings-google-rating, .restaurant-details-ratings-stars,
+.restaurant-details-ratings-comments {
+  vertical-align: middle;
+  padding-right: 2px;
+  letter-spacing: .2em;
+}
+
+.apateez-logo-small, .google-logo-small{
+  border-radius: 50%;
+  width: 24px;
+  padding-left: 2px;
+}
+
+.restaurant-details-ratings-zagat-rated {
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: .15em;
+}
+
+.restaurant-details-ratings-zagat-rated-value {
+  font-size: 13px;
+  color: #92002c;
+}
+
+.restaurant-details-ratings-stars {
+  display: inline-block;
+  position: relative;
+  width: 58.5px;
+}
+
+.restaurant-details-ratings-stars-top {
+  font-size: 9px;
+  line-height: 1.6;
+  color: #101820;
+  position: absolute;
+  overflow: hidden;
+}
+
+.restaurant-details-ratings-stars-bottom {
+  font-size: 9px;
+  line-height: 1.6;
+  color: #CFD1D2;
+}
+
+.restaurant-details-description {
+  padding-top: 2px;
+  font-size: 13px;
+  letter-spacing: .04em;
+}
+
+.restaurant-footer {
+  background-color: #10171F;
+  margin-left : -40px;
+  padding-top: 50px;
+  padding-left: 40px;
+  padding-bottom: 50px;
+}
+
+.restaurant-footer-logo {
+  background-color: white;
+  height: 50px;
+  border-radius: 50%;
+  padding-right: 20px;
+  background-clip: content-box;
+}
