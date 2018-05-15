@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server.js",
+    "start": "rm ./public/services/Nearby.js && rm ./templates/services/Nearby-server.js && node ./server.js",
+    "start:new": "node ./server.js",
     "start:dev": "nodemon ./server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"

@@ -1,11 +1,9 @@
 const express = require('express');
-// const morgan = require('morgan');
 const path = require('path');
 const app = express();
 const port = 3000;
 const axios = require('axios');
 
-// app.use(morgan('dev'));
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,14 +23,11 @@ const Scripts = require('./templates/scripts');
 const renderComponents = (components, props) => {
   return Object.keys(components).map(item => {
     let component = React.createElement(components[item], props);
-    console.log('component',component)
     return ReactDom.renderToString(component);
   });
 };
 
 app.use('/', express.static(path.join(__dirname, './public')));
-
-// app.use('/restaurants', express.static(path.join(__dirname, './public')));
 
 app.get('/restaurants/:id', (req, res) => {
   let id = req.params.id;
@@ -42,7 +37,6 @@ app.get('/restaurants/:id', (req, res) => {
       currentRestaurant: data.restaurant,
       nearbyRestaurants: data.nearby
     }
-    // console.log('1', obj);
     let components = renderComponents(services, obj);
     res.end(Layout(
       'Apatight',
