@@ -1,5 +1,6 @@
 ## NPM ##
 node_modules/
 
-
-EXPLAIN ANALYZE SELECT * FROM nearby WHERE place_id = 9999999;
+## BUNDLES ##
+client/dist/app-server.js
+client/dist/app.js
