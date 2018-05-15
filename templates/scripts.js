@@ -8,7 +8,7 @@ module.exports = (items, props) => `
   <script>
     ${items.map(item => `
       ReactDOM.hydrate(
-        React.createElement(${item}, ${JSON.stringify(props)}),
+        React.createElement(${item}, ${props}),
         document.getElementById('${item}')
       );`).join('\n')}
   </script>
