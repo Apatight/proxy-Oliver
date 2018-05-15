@@ -26,7 +26,7 @@ const fetchBundles = (path, services, suffix = '', require = false) => {
       .catch(err => {
         if (err.code === 'ENOENT') {
           const url = `${services[item]}${suffix}.js`;
-          // console.log(`Fetching: ${url}`);
+          console.log(`Fetching: ${url}`);
           // see: https://www.npmjs.com/package/node-fetch
           fetch(url)
             .then(res => {
