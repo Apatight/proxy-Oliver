@@ -20,7 +20,7 @@ const fetchBundles = (path, services, suffix = '', require = false) => {
     const filename = `${path}/${item}${suffix}.js`;
     exists(filename)
       .then(() => {
-        // console.log('filename', filename)
+        console.log('filename', filename)
         require ? loadBundle(services, item, filename) : null;
       })
       .catch(err => {
@@ -30,9 +30,12 @@ const fetchBundles = (path, services, suffix = '', require = false) => {
           // see: https://www.npmjs.com/package/node-fetch
           fetch(url)
             .then(res => {
+              console.log(`fetched`);
               const dest = fs.createWriteStream(filename);
               res.body.pipe(dest);
+              console.log(`pipe`);
               res.body.on('end', () => {
+                console.log(`ended`);
                 require ? loadBundle(services, item, filename) : null;
               });
             });
