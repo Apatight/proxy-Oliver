@@ -25,8 +25,8 @@ const compression = require('compression')
 
 const redis = require('redis');
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
-// const client = redis.createClient( {host: '52.53.128.184', port: REDIS_PORT, pass:'password'} ); // CHANGE HERE FOR REDIS DOCKER
-const client = redis.createClient(REDIS_PORT); // For localhost
+const client = redis.createClient( {host: '52.53.240.94', port: REDIS_PORT, pass:'password'} ); // CHANGE HERE FOR REDIS DOCKER
+// const client = redis.createClient(REDIS_PORT); // For localhost
 
 app.use(compression({
  filter: function () { return true; },
@@ -40,44 +40,13 @@ const renderComponents = (components, props) => {
   });
 };
 
-// app.get('/loaderio-8642e6fd343f193d469cf459d3e65402', (req, res) => {
-//   res.send('loaderio-8642e6fd343f193d469cf459d3e65402');
-// });
+app.get('/loaderio-1d8b4c9275476a00a76ac2106f94c94a', (req, res) => {
+  res.send('loaderio-1d8b4c9275476a00a76ac2106f94c94a');
+});
 
 app.use('/', express.static(path.join(__dirname, './public')));
 
-// SSR TEMPLATE
-app.get('/restaurants/:id', (req, res) => {
-  const id = req.params.id;
-  client.get(id, (err, result) => {
-    if (result) {
-      res.status(200);
-      let components = renderComponents(services, JSON.parse(result));
-      res.end(Layout(
-        'Apatight',
-        App(...components),
-        Scripts(Object.keys(services), result)
-      ));
-    } else {
-      // USING NEARBY1 docker-machine rm proxy1
-      axios.get(`http://127.0.0.1:3004/api/restaurants/${id}/nearby`)
-      .then(({data}) => {
-        let obj = {
-          currentRestaurant: data.restaurant,
-          nearbyRestaurants: data.nearby
-        }
-        client.setex(id, 60*60, JSON.stringify(obj));
-        let components = renderComponents(services, obj);
-        res.end(Layout(
-          'Apatight',
-          App(...components),
-          Scripts(Object.keys(services), obj)
-        ));
-      })
-    }
-  });
-});
-// FULL PAGE LOAD
+// SSR TEMPLATE  docker-compose up --build -d
 // app.get('/restaurants/:id', (req, res) => {
 //   const id = req.params.id;
 //   client.get(id, (err, result) => {
@@ -90,7 +59,6 @@ app.get('/restaurants/:id', (req, res) => {
 //         Scripts(Object.keys(services), result)
 //       ));
 //     } else {
-//       // USING NEARBY1 docker-machine rm proxy1
 //       axios.get(`http://127.0.0.1:3004/api/restaurants/${id}/nearby`)
 //       .then(({data}) => {
 //         let obj = {
@@ -108,6 +76,39 @@ app.get('/restaurants/:id', (req, res) => {
 //     }
 //   });
 // });
+
+// FULL PAGE LOAD
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id;
+  client.get(id, (err, result) => {
+    if (result) {
+      res.status(200);
+      let components = renderComponents(services, JSON.parse(result));
+      res.end(Layout(
+        'Apatight',
+        App(...components),
+        Scripts(Object.keys(services), result)
+      ));
+    } else {
+      // USING NEARBY1 docker-machine rm proxy1
+      axios.get(`http://nearby-balancer-1208734010.us-west-1.elb.amazonaws.com/api/restaurants/${id}/nearby`)
+      .then(({data}) => {
+        // console.log(data)
+        let obj = {
+          currentRestaurant: data.restaurant,
+          nearbyRestaurants: data.nearby
+        }
+        client.setex(id, 60*60, JSON.stringify(obj));
+        let components = renderComponents(services, obj);
+        res.end(Layout(
+          'Apatight',
+          App(...components),
+          Scripts(Object.keys(services), obj)
+        ));
+      })
+    }
+  });
+});
 
 app.listen(port, () => {
   console.log(`server running at: http://localhost:${port}`);
